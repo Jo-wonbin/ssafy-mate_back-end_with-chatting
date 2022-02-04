@@ -34,6 +34,6 @@ export class ChatService {
       throw new BadGatewayException('채팅 저장에 실패했습니다.');
     }
 
-    // this.eventsGateway.server.to(`/${roomId}`).emit('message', savedChat);
+    this.eventsGateway.server.to(`/${roomId}`).emit('message', savedChat);
   }
 }
