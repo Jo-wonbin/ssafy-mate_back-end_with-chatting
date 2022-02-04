@@ -1,4 +1,4 @@
-import { Injectable, NotFoundException } from '@nestjs/common';
+import { Injectable, Logger, NotFoundException } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { ChattingHistory } from '../entities/ChattingHistory';
 import { Repository } from 'typeorm';
@@ -12,17 +12,23 @@ export class ChatService {
     private eventsGateway: EventsGateway,
   ) {}
 
-  async postChat({ roomId, senderId, sentTime, content }) {
+  async postChat(
+    roomId: string,
+    senderId: bigint,
+    sentTime: string,
+    content: string,
+  ) {
+    const logger = new Logger('ChatService');
     const chatLog = new ChattingHistory();
     chatLog.roomId = roomId;
     chatLog.senderId = senderId;
     chatLog.content = content;
     chatLog.sentTime = sentTime;
-
     const savedChat = await this.chattingHistoryRepository.save(chatLog);
-    if (!savedChat) {
-      throw new NotFoundException('저장에 실패하였습니다.');
-    }
+    console.log(savedChat);
+    // if (!savedChat) {
+    //   throw new NotFoundException('저장에 실패하였습니다.');
+    // }
 
     // const arr = roomId.split('-', 2);
     // if (senderId !== parseInt(arr[0])) {
@@ -30,6 +36,6 @@ export class ChatService {
     // } else {
     //   const receiverId = parseInt(arr[1]);
     // }
-    this.eventsGateway.server.to(`/${roomId}`).emit('message', savedChat);
+    // this.eventsGateway.server.to(`/${roomId}`).emit('message', savedChat);
   }
 }

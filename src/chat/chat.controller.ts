@@ -1,4 +1,11 @@
-import { Body, Controller, Param, ParseIntPipe, Post } from '@nestjs/common';
+import {
+  Body,
+  Controller,
+  HttpStatus,
+  Param,
+  ParseIntPipe,
+  Post,
+} from '@nestjs/common';
 import { ChatService } from './chat.service';
 import { MessageDto } from './dto/message.dto';
 
@@ -8,16 +15,18 @@ export class ChatController {
 
   @Post()
   postChat(
-    @Param('roomId') roomId: string,
-    @Param('senderId', ParseIntPipe) senderId: bigint,
-    @Param('sentTime') sentTime: string,
-    @Param('content') content: string,
+    // @Param('roomId') roomId: string,
+    // @Param('senderId', ParseIntPipe)
+    // senderId: number,
+    // @Param('sentTime') sentTime: string,
+    // @Param('content') content: string,
+    @Body() body: MessageDto,
   ) {
-    return this.chatService.postChat({
-      roomId,
-      senderId,
-      sentTime,
-      content,
-    });
+    return this.chatService.postChat(
+      body.roomId,
+      body.senderId,
+      body.sentTime,
+      body.content,
+    );
   }
 }

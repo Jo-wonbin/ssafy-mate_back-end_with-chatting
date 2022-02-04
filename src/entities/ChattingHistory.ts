@@ -19,14 +19,14 @@ export class ChattingHistory {
   @Column('varchar', { name: 'content', length: 255 })
   content: string;
 
-  @Column('varchar', { name: 'sent_time', length: 255 })
+  @Column('varchar', { name: 'sent_time', length: 100 })
   sentTime: string;
 
-  @Column('varchar', { name: 'room_id', nullable: true, length: 255 })
-  roomId: string | null;
+  @Column('varchar', { name: 'room_id', length: 100 })
+  roomId: string;
 
-  @Column('bigint', { name: 'sender_id', nullable: true })
-  senderId: string | null;
+  @Column('bigint', { name: 'sender_id' })
+  senderId: bigint;
 
   @ManyToOne(() => User, (user) => user.chattingHistories, {
     onDelete: 'NO ACTION',
