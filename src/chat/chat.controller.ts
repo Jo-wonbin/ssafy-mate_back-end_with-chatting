@@ -14,14 +14,7 @@ export class ChatController {
   constructor(private chatService: ChatService) {}
 
   @Post()
-  postChat(
-    // @Param('roomId') roomId: string,
-    // @Param('senderId', ParseIntPipe)
-    // senderId: number,
-    // @Param('sentTime') sentTime: string,
-    // @Param('content') content: string,
-    @Body() body: MessageDto,
-  ) {
+  postChat(@Body() body: MessageDto) {
     return this.chatService.postChat(
       body.roomId,
       body.senderId,

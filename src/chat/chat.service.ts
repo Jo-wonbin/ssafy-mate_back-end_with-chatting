@@ -1,4 +1,9 @@
-import { Injectable, Logger, NotFoundException } from '@nestjs/common';
+import {
+  BadGatewayException,
+  Injectable,
+  Logger,
+  NotFoundException,
+} from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { ChattingHistory } from '../entities/ChattingHistory';
 import { Repository } from 'typeorm';
@@ -25,17 +30,10 @@ export class ChatService {
     chatLog.content = content;
     chatLog.sentTime = sentTime;
     const savedChat = await this.chattingHistoryRepository.save(chatLog);
-    console.log(savedChat);
-    // if (!savedChat) {
-    //   throw new NotFoundException('저장에 실패하였습니다.');
-    // }
+    if (!savedChat) {
+      throw new BadGatewayException('채팅 저장에 실패했습니다.');
+    }
 
-    // const arr = roomId.split('-', 2);
-    // if (senderId !== parseInt(arr[0])) {
-    //   const receiverId = parseInt(arr[0]);
-    // } else {
-    //   const receiverId = parseInt(arr[1]);
-    // }
     // this.eventsGateway.server.to(`/${roomId}`).emit('message', savedChat);
   }
 }
