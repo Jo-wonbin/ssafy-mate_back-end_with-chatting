@@ -22,6 +22,7 @@ export class ChatController {
       body.senderId,
       body.sentTime,
       body.content,
+      body.userName,
     );
   }
 }

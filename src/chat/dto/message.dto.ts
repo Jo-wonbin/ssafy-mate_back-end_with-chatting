@@ -28,4 +28,11 @@ export class MessageDto {
     description: '채팅 보낸 시간',
   })
   public sentTime: string;
+
+  @ApiProperty({
+    required: true,
+    example: '김길동',
+    description: '이름',
+  })
+  public userName: string;
 }
