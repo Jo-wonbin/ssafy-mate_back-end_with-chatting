@@ -15,7 +15,7 @@ import { MessageDto } from '../chat/dto/message.dto';
 const port = process.env.PORT;
 
 // 연결 포트 설정
-@WebSocketGateway(parseInt(port))
+@WebSocketGateway(parseInt(port), { namespace: /\/dm-.+/ })
 export class EventsGateway
   implements OnGatewayInit, OnGatewayConnection, OnGatewayDisconnect
 {

@@ -9,6 +9,11 @@ import { ChattingHistory } from '../entities/ChattingHistory';
 import { Repository } from 'typeorm';
 import { EventsGateway } from '../events/events.gateway';
 import { MessageDto } from './dto/message.dto';
+import { onlineMap } from '../events/onlineMap';
+
+function getKeyByValue(object, value) {
+  return Object.keys(object).find((key) => object[key] === value);
+}
 
 @Injectable()
 export class ChatService {
@@ -42,7 +47,21 @@ export class ChatService {
     message.content = content;
     message.senderId = senderId;
     message.sentTime = sentTime;
+
+    const a: string[] = roomId.split('-');
+    let ReceiverId: bigint;
+    if (BigInt(a[0]) === senderId) {
+      ReceiverId = BigInt(a[1]);
+    } else {
+      ReceiverId = BigInt(a[0]);
+    }
+
+    const receiverSocketId = getKeyByValue(
+      onlineMap[`/dm-${roomId}`],
+      Number(ReceiverId),
+    );
+
     // this.eventsGateway.server.to(`/${roomId}`).emit('message', message);
-    this.eventsGateway.server.emit(`message`, message);
+    this.eventsGateway.server.to(receiverSocketId).emit(`message`, message);
   }
 }
