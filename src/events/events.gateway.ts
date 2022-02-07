@@ -12,11 +12,14 @@ import { Server, Socket } from 'socket.io';
 import { Logger } from '@nestjs/common';
 import { MessageDto } from '../chat/dto/message.dto';
 
+const port = process.env.PORT;
+
 // 연결 포트 설정
-@WebSocketGateway(3095, { namespace: 'chat' })
+@WebSocketGateway(parseInt(port))
 export class EventsGateway
   implements OnGatewayInit, OnGatewayConnection, OnGatewayDisconnect
 {
+  // 서버 인스턴스 접근
   @WebSocketServer() server: Server;
   private logger: Logger = new Logger('EventsGateway');
 
@@ -36,11 +39,11 @@ export class EventsGateway
 
   // 연결
   handleConnection(client: Socket, ...args: any[]) {
-    this.logger.log('Client Connected');
+    this.logger.log(`Client Connected: ${client.id}`);
   }
 
   // 연결 해제
   handleDisconnect(client: Socket) {
-    this.logger.log('Client Disconnect');
+    this.logger.log(`Client Disconnect: ${client.id}`);
   }
 }
