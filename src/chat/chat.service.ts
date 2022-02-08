@@ -24,7 +24,7 @@ export class ChatService {
   ) {}
 
   async postChat(
-    id: number,
+    id: bigint,
     roomId: string,
     senderId: bigint,
     sentTime: string,
@@ -49,8 +49,10 @@ export class ChatService {
       .orderBy('c.id', 'DESC')
       .getOne();
 
+    const latestId: bigint = latestChat.id;
+
     const message = new MessageDto();
-    message.id = Number(latestChat.id);
+    message.id = latestId;
     message.roomId = roomId;
     message.userName = userName;
     message.content = content;
