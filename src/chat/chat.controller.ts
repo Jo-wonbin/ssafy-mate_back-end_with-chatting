@@ -11,13 +11,14 @@ import { MessageDto } from './dto/message.dto';
 import { ApiTags } from '@nestjs/swagger';
 
 @ApiTags('CHAT')
-@Controller('api/chat')
+@Controller('api/chats')
 export class ChatController {
   constructor(private chatService: ChatService) {}
 
   @Post()
   postChat(@Body() body: MessageDto) {
     return this.chatService.postChat(
+      body.id,
       body.roomId,
       body.senderId,
       body.sentTime,

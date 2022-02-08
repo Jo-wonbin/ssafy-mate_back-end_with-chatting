@@ -3,6 +3,13 @@ import { ApiProperty } from '@nestjs/swagger';
 export class MessageDto {
   @ApiProperty({
     required: true,
+    example: '1',
+    description: 'id',
+  })
+  public id: number;
+
+  @ApiProperty({
+    required: true,
     example: '123-124',
     description: '방 번호',
   })
