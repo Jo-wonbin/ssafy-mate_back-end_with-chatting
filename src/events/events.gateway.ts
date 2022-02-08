@@ -21,7 +21,7 @@ export class EventsGateway
   implements OnGatewayInit, OnGatewayConnection, OnGatewayDisconnect
 {
   // 서버 인스턴스 접근
-  @WebSocketServer() server: Server;
+  @WebSocketServer() public server: Server;
   private logger: Logger = new Logger('EventsGateway');
 
   // message 인 emit 요청받음
