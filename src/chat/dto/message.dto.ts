@@ -3,14 +3,21 @@ import { ApiProperty } from '@nestjs/swagger';
 export class MessageDto {
   @ApiProperty({
     required: true,
-    example: '123-124',
+    example: '1',
+    description: 'id',
+  })
+  public id: bigint;
+
+  @ApiProperty({
+    required: true,
+    example: '1-2',
     description: '방 번호',
   })
   public roomId: string;
 
   @ApiProperty({
     required: true,
-    example: 123,
+    example: 2,
     description: '채팅 보낸 사용자 아이디',
   })
   public senderId: bigint;

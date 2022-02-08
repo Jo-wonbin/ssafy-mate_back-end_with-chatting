@@ -14,7 +14,7 @@ import { ChattingRoom } from './ChattingRoom';
 @Entity('chatting_history', { schema: 'ssafy_mate_test' })
 export class ChattingHistory {
   @PrimaryGeneratedColumn({ type: 'bigint', name: 'id' })
-  id: string;
+  id: bigint;
 
   @Column('varchar', { name: 'content', length: 255 })
   content: string;
