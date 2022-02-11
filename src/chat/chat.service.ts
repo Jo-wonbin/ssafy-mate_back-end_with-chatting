@@ -4,8 +4,8 @@ import { ChattingHistory } from '../entities/ChattingHistory';
 import { Repository } from 'typeorm';
 import { EventsGateway } from '../events/events.gateway';
 import { MessageDto } from './dto/message.dto';
-import { onlineMap } from '../events/onlineMap';
-
+// import { onlineMap } from '../events/onlineMap';
+//
 // function getKeyByValue(object, value) {
 //   return Object.keys(object).find((key) => object[key] === value);
 // }
@@ -62,13 +62,7 @@ export class ChatService {
       ReceiverId = BigInt(a[0]);
     }
 
-    // const receiverSocketId = getKeyByValue(
-    //   onlineMap[`/dm-${roomId}`],
-    //   Number(ReceiverId),
-    // );
-
     // this.eventsGateway.server.to(`/${roomId}`).emit('message', message);
-    // this.eventsGateway.server.to(String(ReceiverId)).emit(`message`, message);
     // this.eventsGateway.server.to(receiverSocketId).emit(`message`, message);
     this.eventsGateway.server.to(String(ReceiverId)).emit(`message`, message);
   }
