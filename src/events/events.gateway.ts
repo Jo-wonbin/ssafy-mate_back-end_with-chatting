@@ -16,7 +16,7 @@ import { onlineMap } from './onlineMap';
 const port = process.env.PORT;
 
 // 연결 포트 설정
-@WebSocketGateway(parseInt(port), { namespace: /\/dm-.+/ })
+@WebSocketGateway(parseInt(port)) // { namespace: /\/dm-.+/ }
 export class EventsGateway
   implements OnGatewayInit, OnGatewayConnection, OnGatewayDisconnect
 {
