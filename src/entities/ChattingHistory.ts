@@ -16,10 +16,10 @@ export class ChattingHistory {
   @PrimaryGeneratedColumn({ type: 'bigint', name: 'id' })
   id: bigint;
 
-  @Column('varchar', { name: 'content', length: 255 })
+  @Column('varchar', { name: 'content', length: 500 })
   content: string;
 
-  @Column('varchar', { name: 'sent_time', length: 100 })
+  @Column('varchar', { name: 'sent_time', length: 50 })
   sentTime: string;
 
   @Column('varchar', { name: 'room_id', length: 100 })
