@@ -30,6 +30,15 @@ export class EventsGateway
   ) {
     const newNamespace = socket.nsp;
     onlineMap[socket.nsp.name][socket.id] = data.id;
+    console.log(Object.values(onlineMap[socket.nsp.name]));
+    newNamespace.emit('onlineList', Object.values(onlineMap[socket.nsp.name]));
+  }
+
+  @SubscribeMessage('logout')
+  handleLogout(@ConnectedSocket() socket: Socket) {
+    console.log('logout', socket.nsp.name);
+    const newNamespace = socket.nsp;
+    delete onlineMap[socket.nsp.name][socket.id];
     newNamespace.emit('onlineList', Object.values(onlineMap[socket.nsp.name]));
   }
 
