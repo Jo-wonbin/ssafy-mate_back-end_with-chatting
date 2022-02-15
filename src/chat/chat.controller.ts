@@ -11,7 +11,7 @@ import { MessageDto } from './dto/message.dto';
 import { ApiTags } from '@nestjs/swagger';
 
 @ApiTags('CHAT')
-@Controller('ws/api/chats')
+@Controller('api/chats')
 export class ChatController {
   constructor(private chatService: ChatService) {}
 
