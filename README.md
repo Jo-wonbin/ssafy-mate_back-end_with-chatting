@@ -1,73 +1,74 @@
-<p align="center">
-  <a href="http://nestjs.com/" target="blank"><img src="https://nestjs.com/img/logo_text.svg" width="320" alt="Nest Logo" /></a>
-</p>
+1. 원격 저장소 복제
+```
+   $ git clone https://github.com/ssafy-mate/ssafy-mate_back-end_with-chatting.git
+```
 
-[circleci-image]: https://img.shields.io/circleci/build/github/nestjs/nest/master?token=abc123def456
-[circleci-url]: https://circleci.com/gh/nestjs/nest
 
-  <p align="center">A progressive <a href="http://nodejs.org" target="_blank">Node.js</a> framework for building efficient and scalable server-side applications.</p>
-    <p align="center">
-<a href="https://www.npmjs.com/~nestjscore" target="_blank"><img src="https://img.shields.io/npm/v/@nestjs/core.svg" alt="NPM Version" /></a>
-<a href="https://www.npmjs.com/~nestjscore" target="_blank"><img src="https://img.shields.io/npm/l/@nestjs/core.svg" alt="Package License" /></a>
-<a href="https://www.npmjs.com/~nestjscore" target="_blank"><img src="https://img.shields.io/npm/dm/@nestjs/common.svg" alt="NPM Downloads" /></a>
-<a href="https://circleci.com/gh/nestjs/nest" target="_blank"><img src="https://img.shields.io/circleci/build/github/nestjs/nest/master" alt="CircleCI" /></a>
-<a href="https://coveralls.io/github/nestjs/nest?branch=master" target="_blank"><img src="https://coveralls.io/repos/github/nestjs/nest/badge.svg?branch=master#9" alt="Coverage" /></a>
-<a href="https://discord.gg/G7Qnnhy" target="_blank"><img src="https://img.shields.io/badge/discord-online-brightgreen.svg" alt="Discord"/></a>
-<a href="https://opencollective.com/nest#backer" target="_blank"><img src="https://opencollective.com/nest/backers/badge.svg" alt="Backers on Open Collective" /></a>
-<a href="https://opencollective.com/nest#sponsor" target="_blank"><img src="https://opencollective.com/nest/sponsors/badge.svg" alt="Sponsors on Open Collective" /></a>
-  <a href="https://paypal.me/kamilmysliwiec" target="_blank"><img src="https://img.shields.io/badge/Donate-PayPal-ff3f59.svg"/></a>
-    <a href="https://opencollective.com/nest#sponsor"  target="_blank"><img src="https://img.shields.io/badge/Support%20us-Open%20Collective-41B883.svg" alt="Support us"></a>
-  <a href="https://twitter.com/nestframework" target="_blank"><img src="https://img.shields.io/twitter/follow/nestframework.svg?style=social&label=Follow"></a>
-</p>
-  <!--[![Backers on Open Collective](https://opencollective.com/nest/backers/badge.svg)](https://opencollective.com/nest#backer)
-  [![Sponsors on Open Collective](https://opencollective.com/nest/sponsors/badge.svg)](https://opencollective.com/nest#sponsor)-->
+2. 프로젝터 폴더 > src > .env 파일 생성
+```
+DB_USER=[DB 사용자명]
+DB_PASSWORD=[DB 비밀번호]
+DB_DATABASE=[DB명]
+PORT=[포트번호]
+```
 
-## Description
+3. 프로젝터 폴더 > src > ormconfig.ts 파일 생성
 
-[Nest](https://github.com/nestjs/nest) framework TypeScript starter repository.
+```typescript
+import { TypeOrmModuleOptions } from '@nestjs/typeorm';
+import * as dotenv from 'dotenv';
+import { User } from './src/entities/User';
+import { ChattingRoom } from './src/entities/ChattingRoom';
+import { ChattingHistory } from './src/entities/ChattingHistory';
 
-## Installation
+dotenv.config();
+const config: TypeOrmModuleOptions = {
+  type: 'mysql',
+  host: '[호스트명]',
+  port: 3306,
+  username: process.env.DB_USER,
+  password: process.env.DB_PASSWORD,
+  database: process.env.DB_DATABASE,
+  entities: [User, ChattingRoom, ChattingHistory],
+  migrations: [__dirname + '/src/migrations/*.ts'],
+  cli: { migrationsDir: 'src/migrations' },
+  autoLoadEntities: true,
+  charset: 'utf8mb4',
+  synchronize: false, // ddl-auto 옵션임.
+  logging: true,
+  keepConnectionAlive: true,
+};
 
-```bash
+export = config;
+```
+
+4. 프로젝터 폴더 > src > output > ormconfig.json 파일 생성
+```json
+[
+  {
+    "name": "default",
+    "type": "mysql",
+    "host": "[호스트명]",
+    "port": 3306,
+    "username": "[DB 사용자명]",
+    "password": "[DB 비밀번호]",
+    "database": "[DB 명]",
+    "synchronize": false,
+    "entities": ["entities/*.js"]
+  }
+]
+```
+
+5. 프로젝트 폴더 루트 경로로 이동
+```
+$ cd ssafy-mate_back-end_with-chatting
+```
+
+6. npm 설치
+```
 $ npm install
 ```
-
-## Running the app
-
-```bash
-# development
-$ npm run start
-
-# watch mode
-$ npm run start:dev
-
-# production mode
-$ npm run start:prod
+7. 프로젝트 빌드
 ```
-
-## Test
-
-```bash
-# unit tests
-$ npm run test
-
-# e2e tests
-$ npm run test:e2e
-
-# test coverage
-$ npm run test:cov
+$ npm run build
 ```
-
-## Support
-
-Nest is an MIT-licensed open source project. It can grow thanks to the sponsors and support by the amazing backers. If you'd like to join them, please [read more here](https://docs.nestjs.com/support).
-
-## Stay in touch
-
-- Author - [Kamil Myśliwiec](https://kamilmysliwiec.com)
-- Website - [https://nestjs.com](https://nestjs.com/)
-- Twitter - [@nestframework](https://twitter.com/nestframework)
-
-## License
-
-Nest is [MIT licensed](LICENSE).
