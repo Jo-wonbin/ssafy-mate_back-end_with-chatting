@@ -4,7 +4,7 @@
 ```
 
 
-2. 프로젝터 폴더 > src > .env 파일 생성
+2. 프로젝터 폴더 > .env 파일 생성
 ```
 DB_USER=[DB 사용자명]
 DB_PASSWORD=[DB 비밀번호]
@@ -12,7 +12,7 @@ DB_DATABASE=[DB명]
 PORT=[포트번호]
 ```
 
-3. 프로젝터 폴더 > src > ormconfig.ts 파일 생성
+3. 프로젝터 폴더 > ormconfig.ts 파일 생성
 
 ```typescript
 import { TypeOrmModuleOptions } from '@nestjs/typeorm';
@@ -42,7 +42,7 @@ const config: TypeOrmModuleOptions = {
 export = config;
 ```
 
-4. 프로젝터 폴더 > src > output > ormconfig.json 파일 생성
+4. 프로젝터 폴더 > output > ormconfig.json 파일 생성
 ```json
 [
   {
@@ -71,4 +71,8 @@ $ npm install
 7. 프로젝트 빌드
 ```
 $ npm run build
+```
+8. 프로젝트 시작
+```
+$ npm run start
 ```
